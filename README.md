@@ -1,17 +1,22 @@
-users
+
+## usersテーブル
 
 | Column             | Type   | Options                   |
 | :----------------- | :----- | :------------------------ |
-| nickname           | string | null: false, unique: true |
+| nickname           | string | null: false               |
 | email              | string | null: false, unique: true |
-| encrypted_password | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
 | last_name          | string | null: false               |
 | first_name         | string | null: false               |
 | last_name_kana     | string | null: false               |
 | first_name_kana    | string | null: false               |
 | birthday           | date   | null: false               |
 
-items
+  has_many :items
+  has_many :orders
+  has_many :comments
+
+## itemsテーブル
 
 | Column           | Type       | Options                        |
 | :--------------- | :--------- | :----------------------------- |
@@ -25,16 +30,24 @@ items
 | shipping_date_id | integer    | null: false                    |
 | price            | integer    | null: false                    |
 
-orders
+  belongs_to :user
+  has_one :order
+  has_many :comments
+
+## ordersテーブル
 | Column | Type       | Options                        |
 | :----- | :--------- | :----------------------------- |
 | user   | references | null: false, foreign_key: true |
 | item   | references | null: false, foreign_key: true |
 
-payments
+  belongs_to :user
+  belongs_to :item
+  has_one :payment
+
+## paymentsテーブル
 | Column        | Type       | Options                        |
 | :------------ | :--------- | :----------------------------- |
-| orders        | references | null: false, foreign_key: true |
+| order         | references | null: false, foreign_key: true |
 | postcode      | string     | null: false                    |
 | prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
@@ -42,3 +55,4 @@ payments
 | building      | string     |                                |
 | phone_number  | string     | null: false                    |
 
+  belongs_to :order
