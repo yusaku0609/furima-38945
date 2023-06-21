@@ -1,7 +1,7 @@
 require 'rails_helper'
 RSpec.describe Item, type: :model do
   before do
-    @item = FactoryBot.new(:item)
+    @item = FactoryBot.build(:item)
   end
 
   describe '商品の出品登録' do
@@ -121,6 +121,10 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not included in the list')
       end
+      it '価格範囲が半角数字でないと出品できない'
+      @item.price = '１００００'
+      @item.valid?
+      expect(@item.errors.full_messages).to receive("Price Half-width number")
     end
   end
 end
