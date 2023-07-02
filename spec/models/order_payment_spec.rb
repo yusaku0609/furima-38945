@@ -95,6 +95,11 @@ RSpec.describe OrderPayment, type: :model do
         @order_payment.valid?
         expect(@order_payment.errors.full_messages).to include('Phone number is invalid')
       end
+      it '電話番号が9桁以下だと保存できないこと' do
+        @order_payment.phone_number = 12_345_678
+        @order_payment.valid?
+        expect(@order_payment.errors.full_messages).to include('Phone number is invalid')
+      end
       it '電話番号が12桁以上あると保存できないこと' do
         @order_payment.phone_number = 12_345_678_910_123_111
         @order_payment.valid?
