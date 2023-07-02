@@ -1,9 +1,5 @@
 FactoryBot.define do
   factory :order_payment do
-    before do
-      user = FactoryBot.create(:user)
-      @order_payment = FactoryBot.build(:order_payment,user_id: user.id)
-    end
     #user_id { Faker::Number.non_zero_digit }
     #item_id { Faker::Number.non_zero_digit }
     postcode { Faker::Number.decimal_part(digits: 3) + '-' + Faker::Number.decimal_part(digits: 4) }
