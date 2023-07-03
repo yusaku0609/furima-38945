@@ -1,3 +1,3 @@
-class Payment < ApplicationRecord
+class Price < ApplicationRecord
   belongs_to :order
 end
